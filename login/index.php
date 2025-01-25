@@ -46,9 +46,9 @@ if (isset($_POST['submit'])) {
         setcookie('username', $username, time() + (86400 * 30), "/", "", true, true);
         setcookie('session_token', session_id(), time() + (86400 * 30), "/", "", true, true);
 
-?>
+        ?>
         <script>
-            window.onload = function() {
+            window.onload = function () {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -60,11 +60,11 @@ if (isset($_POST['submit'])) {
                 });
             };
         </script>
-    <?php
+        <?php
     } else {
-    ?>
+        ?>
         <script>
-            window.onload = function() {
+            window.onload = function () {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
                 });
             };
         </script>
-<?php
+        <?php
     }
 }
 ?>
@@ -139,7 +139,7 @@ if (isset($_POST['submit'])) {
 
     usernameField.addEventListener('input', validateForm);
 
-    document.getElementById('toggle-password').addEventListener('click', function() {
+    document.getElementById('toggle-password').addEventListener('click', function () {
         const passwordField = document.getElementById('password');
         const toggleIcon = this.querySelector('i');
 
