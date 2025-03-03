@@ -43,6 +43,9 @@ To use the application, open your browser and navigate to `http://localhost/php-
 3. Upon successful login, you will be redirected to the index page (`index.php`).
 
 ![Login](src/images/login.png)
+- **🖥 Admin Login:** `iqbolshoh`  
+- **👤 User Login:** `user`  
+- **🔑 Password:** `IQBOLSHOH`  
 
 ### User Logout
 
