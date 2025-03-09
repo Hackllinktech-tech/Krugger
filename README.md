@@ -1,57 +1,83 @@
-# PHP Authentication System
+# 🔐 PHP Authentication System
 
-This repository contains a user authentication system built with PHP and MySQL. It includes features such as user registration, login, and logout functionalities.
+This repository contains a **secure** user authentication system built with **PHP** and **MySQL**. It includes essential features such as **user registration, login, logout, and session management**.
 
 ![Banner](src/images/banner.png)
 
-## Installation
+---
+## 🚀 Installation
 
-To run this project locally, follow these steps:
+Follow these steps to set up the project locally:
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/iqbolshoh/php-auth-system.git
    ```
-2. Navigate to the project directory:
+2. **Navigate to the project directory:**
    ```bash
    cd php-auth-system
    ```
-3. Import the database:
-   - Open your MySQL database management tool (e.g., phpMyAdmin).
-   - Create a new database.
-   - Import the `database.sql` file into the new database.
+3. **Import the database:**
+   - Open **phpMyAdmin** or any MySQL management tool.
+   - Create a new database (`auth_system`).
+   - Import the `database.sql` file.
 
-4. Update the database configuration:
-   - Open `config.php` and update the database connection details.
+4. **Update database credentials in `config.php`:**
+   ```php
+   $servername = "localhost";
+   $username = "root";
+   $password = "";
+   $dbname = "auth_system";
+   ```
 
-## Usage
+5. **Start the server:**
+   - If using **XAMPP**/**MAMP**, move the project folder into `htdocs`.
+   - Open a browser and go to:
+     ```
+     http://localhost/php-auth-system
+     ```
 
-To use the application, open your browser and navigate to `http://localhost/php-auth-system`. This will load the main page of the application.
+---
+## 📌 Features
+✅ **User Registration** – Create an account with secure password hashing.  
+✅ **User Login** – Authenticate users with session management.  
+✅ **User Logout** – Secure logout with session destruction.  
+✅ **Session Management** – Keep users logged in securely.  
+✅ **Hashed Passwords** – Uses `password_hash()` for better security.  
+✅ **Error Handling** – Displays friendly error messages.  
 
-### User Registration
+---
+## 🎯 Usage
 
-1. Go to the signup page (`signup/`).
-2. Fill out the registration form and submit it.
-3. Upon successful registration, you will be redirected to the login page.
+### 📝 User Registration
+1. Navigate to **Signup Page** (`signup/`).
+2. Fill out the registration form.
+3. Submit the form.
+4. Upon successful registration, you will be redirected to the login page.
 
-![Signup](src/images/singup.png)
+![Signup](src/images/signup.png)
 
-### User Login
-
-1. Go to the login page (`login/`).
-2. Enter your credentials and submit the form.
-3. Upon successful login, you will be redirected to the index page (`index.php`).
+### 🔑 User Login
+1. Go to the **Login Page** (`login/`).
+2. Enter your credentials.
+3. Click **Login** to access the dashboard.
 
 ![Login](src/images/login.png)
 - **🖥 Admin Login:** `iqbolshoh`  
 - **👤 User Login:** `user`  
 - **🔑 Password:** `IQBOLSHOH`  
 
-### User Logout
 
-1. Click the logout button or navigate to the logout page (`logout/`).
-2. You will be logged out and redirected to the login page.
+### 🔓 User Logout
+1. Click the **Logout** button.
+2. Your session will be destroyed, and you'll be redirected to the login page.
 
+---
+## 🛠 Security Best Practices
+🔹 **Use `password_hash()`** for secure password storage.  
+🔹 **Implement CSRF protection** for form submissions.  
+🔹 **Sanitize user inputs** to prevent SQL injection.  
+🔹 **Use HTTPS** in production for secure connections.  
 ---
 
 ## 🖥 Technologies Used
