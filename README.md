@@ -5,39 +5,6 @@ This repository contains a **secure** user authentication system built with **PH
 ![Banner](src/images/banner.png)
 
 ---
-## 🚀 Installation
-
-Follow these steps to set up the project locally:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/iqbolshoh/php-auth-system.git
-   ```
-2. **Navigate to the project directory:**
-   ```bash
-   cd php-auth-system
-   ```
-3. **Import the database:**
-   - Open **phpMyAdmin** or any MySQL management tool.
-   - Create a new database (`auth_system`).
-   - Import the `database.sql` file.
-
-4. **Update database credentials in `config.php`:**
-   ```php
-   $servername = "localhost";
-   $username = "root";
-   $password = "";
-   $dbname = "auth_system";
-   ```
-
-5. **Start the server:**
-   - If using **XAMPP**/**MAMP**, move the project folder into `htdocs`.
-   - Open a browser and go to:
-     ```
-     http://localhost/php-auth-system
-     ```
-
----
 ## 📌 Features
 ✅ **User Registration** – Create an account with secure password hashing.  
 ✅ **User Login** – Authenticate users with session management.  
@@ -67,17 +34,36 @@ Follow these steps to set up the project locally:
 - **👤 User Login:** `user`  
 - **🔑 Password:** `IQBOLSHOH`  
 
-
 ### 🔓 User Logout
 1. Click the **Logout** button.
 2. Your session will be destroyed, and you'll be redirected to the login page.
 
 ---
-## 🛠 Security Best Practices
-🔹 **Use `password_hash()`** for secure password storage.  
-🔹 **Implement CSRF protection** for form submissions.  
-🔹 **Sanitize user inputs** to prevent SQL injection.  
-🔹 **Use HTTPS** in production for secure connections.  
+## 🚀 Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/iqbolshoh/php-auth-system.git
+   ```
+2. **Navigate to the project directory:**
+   ```bash
+   cd php-auth-system
+   ```
+3. **Import the database:**
+   - Open **phpMyAdmin** or any MySQL management tool.
+   - Create a new database (`auth_system`).
+   - Import the `database.sql` file.
+
+4. **Update database credentials in `config.php`:**
+   ```php
+   $servername = "localhost";
+   $username = "root";
+   $password = "";
+   $dbname = "auth_system";
+   ```
+
 ---
 
 ## 🖥 Technologies Used
