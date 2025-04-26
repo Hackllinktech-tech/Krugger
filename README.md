@@ -30,6 +30,7 @@ This repository contains a **secure** user authentication system built with **PH
 3. Click **Login** to access the dashboard.
 
 ![Login](src/images/login.png)
+
 - **🖥 Admin Login:** `iqbolshoh`  
 - **👤 User Login:** `user`  
 - **🔑 Password:** `IQBOLSHOH`  
