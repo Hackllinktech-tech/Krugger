@@ -136,7 +136,7 @@ if (isset($_POST['logout'])) {
         input[type="password"]:focus {
             background: rgba(255,255,255,1);
         }
-        button[type="submit"], .logout-btn {
+        button[type="submit"], .logout-btn, .founders-btn {
             width: 100%;
             padding: 0.8rem;
             border-radius: 16px;
@@ -150,7 +150,7 @@ if (isset($_POST['logout'])) {
             box-shadow: 0 2px 12px 0 rgba(31,38,135,.07);
             transition: background 0.18s, transform 0.15s;
         }
-        button[type="submit"]:hover, .logout-btn:hover {
+        button[type="submit"]:hover, .logout-btn:hover, .founders-btn:hover {
             background: linear-gradient(90deg,#f357a8,#7b2ff2);
             transform: translateY(-2px) scale(1.03);
         }
@@ -170,6 +170,10 @@ if (isset($_POST['logout'])) {
             justify-content: center;
             font-size: 2.2rem;
             margin-bottom: 1rem;
+        }
+        .founders-btn {
+            margin-top: 1.2rem;
+            display: block;
         }
     </style>
 </head>
@@ -201,6 +205,10 @@ if (isset($_POST['logout'])) {
         </div>
         <div class="tab-content active" id="home">
             <p style="color:#fff; text-align:center;">This is your dashboard. Use the tabs above to manage your account.</p>
+            <!-- Founders button added here -->
+            <button class="founders-btn" onclick="window.location.href='dashboard/details.php'">
+                <i class="fas fa-users"></i> Founders
+            </button>
         </div>
         <div class="tab-content" id="profile">
             <div class="profile-avatar">
