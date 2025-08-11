@@ -1,20 +1,28 @@
-# Use the official PHP image with Apache
 FROM php:8.2-apache
 
-# Copy project files to the Apache document root
-COPY . /var/www/html/
+# Install mysqli extension for MySQL database connectivity
+RUN docker-php-ext-install mysqli
 
-# Enable Apache mod_rewrite (optional, if you use it)
+# Enable Apache mod_rewrite (optional, enables custom URL routing)
 RUN a2enmod rewrite
 
-# Install Composer globally (optional, if you use composer.json)
+# Copy project files into the Apache document root
+COPY . /var/www/html/
+
+# Install Composer globally (optional, only if you use composer.json)
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
 
-# If you use composer.json, install dependencies
+# Install Composer dependencies if composer.json exists
 WORKDIR /var/www/html
 RUN if [ -f composer.json ]; then composer install; fi
 
-# Expose port 80 for Apache
+# Set proper permissions for Apache (optional, improves security and access)
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose port 80 for Apache web server
 EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["apache2-foreground"]
