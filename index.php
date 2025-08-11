@@ -84,7 +84,7 @@
 
 <h1>HACKLINK TECH</h1>
 <p>Your portal to the next level of connectivity...</p>
-<a href="signup/signup.php" class="btn">Get Started</a>
+<a href="signup/index.php" class="btn">Get Started</a>
 
 <!-- Snowflake Generator -->
 <script>
