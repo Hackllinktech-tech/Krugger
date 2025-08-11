@@ -44,7 +44,7 @@ $query = new Database();
             color: #333;
         }
 
-        .logout {
+        .dashboard-link {
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
@@ -55,7 +55,7 @@ $query = new Database();
             transition: background-color 0.3s;
         }
 
-        .logout:hover {
+        .dashboard-link:hover {
             background-color: #0056b3;
         }
     </style>
@@ -65,7 +65,7 @@ $query = new Database();
 
     <div class="container">
         <?php echo "<h1>Hello, {$_SESSION['username']}!</h1>"; ?>
-        <a href="./logout/" class="logout">Logout</a>
+        <a href="./dashboard/" class="dashboard-link">Go to Dashboard</a>
     </div>
 
 </body>
