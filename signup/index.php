@@ -1,5 +1,5 @@
 <?php
-// register.php
+// signup/index.php
 include 'config.php';
 $message = "";
 
@@ -48,31 +48,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
       background-color: #0f0f0f;
       color: white;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
       background: radial-gradient(circle at top, #021B79, #0575E6);
     }
+
     .container {
-      background: rgba(255,255,255,0.05);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(5, 230, 255, 0.5);
-      width: 100%;
-      max-width: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(5, 230, 255, 0.5);
+      width: 75vw;
+      height: 75vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
     }
+
     h2 {
       color: #05e6ff;
       text-shadow: 0 0 10px #05e6ff;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
+
     input {
-      width: 100%; padding: 10px;
-      margin: 8px 0;
+      width: 80%;
+      padding: 12px;
+      margin: 10px auto;
       border: none;
       border-radius: 8px;
       background: rgba(255,255,255,0.1);
@@ -80,11 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       font-size: 1rem;
       outline: none;
     }
+
     input:focus {
       box-shadow: 0 0 8px #05e6ff;
     }
+
     button {
-      width: 100%; padding: 10px;
+      width: 80%;
+      padding: 12px;
       border: none;
       border-radius: 8px;
       background: #05e6ff;
@@ -92,21 +105,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
     }
+
     button:hover {
       box-shadow: 0 0 15px #05e6ff;
     }
+
     .message {
       margin-top: 10px;
       color: #ff4d4d;
     }
+
     a {
       color: #05e6ff;
       text-decoration: none;
     }
+
     a:hover {
       text-shadow: 0 0 5px #05e6ff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        width: 90vw;
+        height: auto;
+        padding: 20px;
+      }
+      input, button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -132,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById("username").addEventListener("keyup", function(){
       let username = this.value;
       if(username.length > 2){
-        fetch("check_username.php?username=" + username)
+        fetch("signup/check_username.php?username=" + encodeURIComponent(username))
         .then(res => res.text())
         .then(data => {
           let status = document.getElementById("username-status");
