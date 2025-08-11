@@ -1,8 +1,8 @@
 <?php
 define("DB_SERVER", "sql8.freesqldatabase.com");
-define("DB_USERNAME", "sql8794627);
-define("DB_PASSWORD", "BXrQfkfX9k);
-define("DB_NAME", "sql8794627);
+define("DB_USERNAME", "sql8794627");
+define("DB_PASSWORD", "BXrQfkfX9k");
+define("DB_NAME", "sql8794627");
 
 class Database
 {
@@ -43,7 +43,7 @@ class Database
         return $result;
     }
 
-    function validate($value)
+    public function validate($value)
     {
         return htmlspecialchars(trim(stripslashes($value)), ENT_QUOTES, 'UTF-8');
     }
