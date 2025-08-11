@@ -1,5 +1,5 @@
 <?php
-// Ensure no whitespace before this PHP block!
+// Start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,7 +10,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-include './config.php';
+require_once './config.php';
 $query = new Database();
 
 $username = $_SESSION['username'];
@@ -30,6 +30,7 @@ if (isset($_POST['update_credentials'])) {
     $new_password = trim($_POST['new_password']);
 
     if (!empty($new_username) || !empty($new_password)) {
+        // Check username availability
         if (!empty($new_username)) {
             $stmt = $query->conn->prepare("SELECT id FROM users WHERE username = ? AND username != ?");
             $stmt->bind_param("ss", $new_username, $username);
@@ -43,6 +44,7 @@ if (isset($_POST['update_credentials'])) {
             $stmt->close();
         }
 
+        // Build update query
         $update_sql = "UPDATE users SET ";
         $params = [];
         $types = "";
@@ -98,14 +100,18 @@ end_of_php:
         margin: 0;
         min-height: 100vh;
         color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .dashboard-container {
-        max-width: 450px;
+        width: 90%;
+        max-width: 480px;
         background: rgba(255,255,255,0.12);
         padding: 2rem;
         border-radius: 20px;
-        margin: 60px auto;
         backdrop-filter: blur(8px);
+        box-shadow: 0 0 25px rgba(0,0,0,0.3);
     }
     h1 {
         text-align: center;
@@ -115,6 +121,7 @@ end_of_php:
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-shadow: 0 0 20px rgba(255,255,255,0.6);
+        margin-bottom: 1.5rem;
     }
     .btn {
         display: block;
@@ -128,7 +135,7 @@ end_of_php:
         font-size: 1rem;
         font-weight: bold;
         cursor: pointer;
-        transition: 0.2s;
+        transition: all 0.2s ease-in-out;
     }
     .btn:hover {
         background: linear-gradient(90deg,#f357a8,#7b2ff2);
