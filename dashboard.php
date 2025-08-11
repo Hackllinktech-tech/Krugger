@@ -26,8 +26,67 @@ if (isset($_POST['logout'])) {
     exit;
 }
 
-// TODO: Add backend logic for updating profile and credentials
+// Handle credentials update
+if (isset($_POST['update_credentials'])) {
+    $new_username = trim($_POST['new_username']);
+    $new_password = trim($_POST['new_password']);
 
+    if (!empty($new_username) || !empty($new_password)) {
+
+        // Check if username is available
+        if (!empty($new_username)) {
+            $stmt = $query->conn->prepare("SELECT id FROM users WHERE username = ? AND username != ?");
+            $stmt->bind_param("ss", $new_username, $username);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                echo "<script>alert('Username already taken');</script>";
+                $stmt->close();
+                goto end_of_php;
+            }
+            $stmt->close();
+        }
+
+        // Build dynamic update query
+        $update_sql = "UPDATE users SET ";
+        $params = [];
+        $types = "";
+
+        if (!empty($new_username)) {
+            $update_sql .= "username = ?, ";
+            $params[] = $new_username;
+            $types .= "s";
+        }
+        if (!empty($new_password)) {
+            $hashed = password_hash($new_password, PASSWORD_BCRYPT);
+            $update_sql .= "password = ?, ";
+            $params[] = $hashed;
+            $types .= "s";
+        }
+
+        $update_sql = rtrim($update_sql, ", ") . " WHERE username = ?";
+        $params[] = $username;
+        $types .= "s";
+
+        $stmt = $query->conn->prepare($update_sql);
+        $stmt->bind_param($types, ...$params);
+
+        if ($stmt->execute()) {
+            if (!empty($new_username)) {
+                $_SESSION['username'] = $new_username;
+                $username = $new_username;
+            }
+            echo "<script>alert('Credentials updated successfully');</script>";
+        } else {
+            echo "<script>alert('Error updating credentials');</script>";
+        }
+        $stmt->close();
+    } else {
+        echo "<script>alert('Please fill in at least one field');</script>";
+    }
+}
+
+end_of_php:
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,9 +264,11 @@ if (isset($_POST['logout'])) {
         </div>
         <div class="tab-content active" id="home">
             <p style="color:#fff; text-align:center;">This is your dashboard. Use the tabs above to manage your account.</p>
-            <!-- Founders button added here -->
             <button class="founders-btn" onclick="window.location.href='dashboard/details.php'">
                 <i class="fas fa-users"></i> Founders
+            </button>
+            <button class="founders-btn" onclick="window.location.href='info.php'">
+                <i class="fas fa-info-circle"></i> Info
             </button>
         </div>
         <div class="tab-content" id="profile">
@@ -228,7 +289,6 @@ if (isset($_POST['logout'])) {
                 <input type="password" id="new-password" name="new_password" maxlength="255" placeholder="Enter new password">
                 <button type="submit" name="update_credentials">Update Credentials</button>
             </form>
-            <!-- Add backend logic for credentials update -->
         </div>
         <div class="tab-content" id="logout">
             <form method="post" action="">
