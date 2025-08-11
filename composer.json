@@ -1,0 +1,11 @@
+{
+  "name": "toxyic-hacky/krugger",
+  "description": "Krugger PHP web application",
+  "type": "project",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
