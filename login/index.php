@@ -80,30 +80,75 @@ if (isset($_POST['submit'])) {
         align-items: center;
         min-height: 100vh;
         background: radial-gradient(circle at top, #0d0d0d, #1a1a1a);
+        overflow: hidden;
     }
+
+    /* Animated background glow */
+    body::before {
+        content: '';
+        position: absolute;
+        width: 300%;
+        height: 300%;
+        background: conic-gradient(#ff00aa, #9900ff, #00ffee, #ff00aa);
+        animation: spin 10s linear infinite;
+        filter: blur(200px);
+        z-index: 0;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
     .login-box {
+        position: relative;
+        z-index: 1;
         background: rgba(20, 20, 20, 0.9);
         padding: 2rem;
         border-radius: 15px;
-        box-shadow: 0 0 30px rgba(255, 0, 100, 0.5);
+        box-shadow: 0 0 25px rgba(255, 0, 100, 0.6);
         width: 350px;
         text-align: center;
         color: #fff;
         animation: fadeIn 0.8s ease-in-out;
     }
+
+    .login-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 15px;
+        padding: 2px;
+        background: linear-gradient(45deg, #ff00aa, #9900ff, #00ffee);
+        -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        animation: borderGlow 4s linear infinite;
+    }
+
+    @keyframes borderGlow {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+
     h1 {
         font-size: 1.8rem;
         margin-bottom: 1.5rem;
-        text-shadow: 0 0 5px #ff00aa, 0 0 10px #ff00aa, 0 0 20px #ff00aa;
+        text-shadow: 0 0 10px #ff00aa, 0 0 20px #ff00aa, 0 0 40px #ff00aa;
     }
+
     .form-group {
         margin-bottom: 1rem;
         text-align: left;
     }
+
     label {
         font-size: 0.9rem;
         color: #ccc;
     }
+
     input {
         width: 100%;
         padding: 0.7rem;
@@ -116,13 +161,16 @@ if (isset($_POST['submit'])) {
         outline: none;
         transition: all 0.3s ease;
     }
+
     input:focus {
-        box-shadow: 0 0 10px #ff00aa;
+        box-shadow: 0 0 15px #ff00aa;
         background: rgba(255, 255, 255, 0.15);
     }
+
     .password-container {
         position: relative;
     }
+
     .password-toggle {
         position: absolute;
         right: 10px;
@@ -133,6 +181,7 @@ if (isset($_POST['submit'])) {
         color: #ff00aa;
         cursor: pointer;
     }
+
     button {
         width: 100%;
         padding: 0.8rem;
@@ -145,21 +194,31 @@ if (isset($_POST['submit'])) {
         cursor: pointer;
         transition: 0.3s;
     }
+
     button:hover {
         transform: scale(1.05);
-        box-shadow: 0 0 15px #ff00aa;
+        box-shadow: 0 0 20px #ff00aa;
     }
+
     p {
         margin-top: 1rem;
         font-size: 0.9rem;
     }
+
     p a {
         color: #ff00aa;
         text-decoration: none;
     }
+
     @keyframes fadeIn {
         from {opacity: 0; transform: translateY(-20px);}
         to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 400px) {
+        .login-box {
+            width: 90%;
+        }
     }
 </style>
 </head>
