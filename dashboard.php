@@ -1,7 +1,5 @@
 <?php
 // Ensure no whitespace before this PHP block!
-
-// Start session only if none is active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -17,7 +15,7 @@ $query = new Database();
 
 $username = $_SESSION['username'];
 
-// Handle logout before any HTML output!
+// Handle logout
 if (isset($_POST['logout'])) {
     session_destroy();
     setcookie('username', '', time() - 3600, "/");
@@ -32,8 +30,6 @@ if (isset($_POST['update_credentials'])) {
     $new_password = trim($_POST['new_password']);
 
     if (!empty($new_username) || !empty($new_password)) {
-
-        // Check if username is available
         if (!empty($new_username)) {
             $stmt = $query->conn->prepare("SELECT id FROM users WHERE username = ? AND username != ?");
             $stmt->bind_param("ss", $new_username, $username);
@@ -47,7 +43,6 @@ if (isset($_POST['update_credentials'])) {
             $stmt->close();
         }
 
-        // Build dynamic update query
         $update_sql = "UPDATE users SET ";
         $params = [];
         $types = "";
@@ -91,221 +86,92 @@ end_of_php:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Poppins', Arial, sans-serif;
-            background: linear-gradient(135deg, #5f2c82 0%, #49a09d 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .mountains-bg {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .dashboard-container {
-            position: relative;
-            z-index: 1;
-            width: 400px;
-            max-width: 95vw;
-            padding: 2.5rem 2rem 2rem 2rem;
-            margin: 80px auto;
-            border-radius: 24px;
-            background: rgba(255,255,255,0.14);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.20);
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            border: 1px solid rgba(255,255,255,0.18);
-        }
-        h1 {
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 2rem;
-            border-radius: 14px;
-            overflow: hidden;
-            background: rgba(255,255,255,0.14);
-        }
-        .tab {
-            flex: 1;
-            padding: 0.8rem 0.5rem;
-            text-align: center;
-            cursor: pointer;
-            color: #fff;
-            font-size: 1.08rem;
-            font-weight: 500;
-            background: none;
-            border: none;
-            transition: background 0.2s, color 0.2s;
-        }
-        .tab.active {
-            background: linear-gradient(90deg,#7b2ff2,#f357a8);
-            color: #fff;
-        }
-        .tab:not(.active):hover {
-            background: rgba(255,255,255,0.24);
-            color: #f357a8;
-        }
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.55s;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0;}
-            to { opacity: 1;}
-        }
-        label {
-            display: block;
-            color: #fff;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 0.7rem;
-            border-radius: 14px;
-            border: none;
-            outline: none;
-            background: rgba(255,255,255,0.9);
-            color: #7b2ff2;
-            font-size: 1rem;
-            margin-bottom: 0.9rem;
-            box-shadow: 0 1px 8px 0 rgba(31, 38, 135, 0.06);
-            transition: background 0.2s;
-        }
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            background: rgba(255,255,255,1);
-        }
-        button[type="submit"], .logout-btn, .founders-btn {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 16px;
-            border: none;
-            background: linear-gradient(90deg,#7b2ff2,#f357a8);
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 0.8rem;
-            box-shadow: 0 2px 12px 0 rgba(31,38,135,.07);
-            transition: background 0.18s, transform 0.15s;
-        }
-        button[type="submit"]:hover, .logout-btn:hover, .founders-btn:hover {
-            background: linear-gradient(90deg,#f357a8,#7b2ff2);
-            transform: translateY(-2px) scale(1.03);
-        }
-        .profile-info {
-            color: #fff;
-            text-align: left;
-            margin-bottom: 1.5rem;
-        }
-        .profile-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(45deg,#7b2ff2,#f357a8);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
-        .founders-btn {
-            margin-top: 1.2rem;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Dashboard - HACKLINK TECH</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #5f2c82 0%, #49a09d 100%);
+        margin: 0;
+        min-height: 100vh;
+        color: white;
+    }
+    .dashboard-container {
+        max-width: 450px;
+        background: rgba(255,255,255,0.12);
+        padding: 2rem;
+        border-radius: 20px;
+        margin: 60px auto;
+        backdrop-filter: blur(8px);
+    }
+    h1 {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff00ff, #00ffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(255,255,255,0.6);
+    }
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 0.9rem;
+        margin: 0.6rem 0;
+        border: none;
+        border-radius: 15px;
+        background: linear-gradient(90deg,#7b2ff2,#f357a8);
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .btn:hover {
+        background: linear-gradient(90deg,#f357a8,#7b2ff2);
+        transform: scale(1.05);
+    }
+    .coming-soon {
+        text-align: center;
+        font-size: 1rem;
+        margin-top: 20px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+        from { text-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff; }
+        to { text-shadow: 0 0 18px #ff00ff, 0 0 24px #00ffff; }
+    }
+</style>
 </head>
 <body>
-    <svg class="mountains-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <defs>
-            <linearGradient id="mountain-gradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#7b2ff2"/>
-                <stop offset="100%" stop-color="#f357a8"/>
-            </linearGradient>
-        </defs>
-        <path d="M0,80 Q20,60 40,80 Q60,100 80,80 Q90,70 100,80 L100,100 L0,100 Z"
-              fill="url(#mountain-gradient)" opacity="0.8"/>
-        <circle cx="80" cy="25" r="8" fill="#fff8" />
-        <circle cx="15" cy="18" r="0.6" fill="#fff"/>
-        <circle cx="25" cy="10" r="0.7" fill="#fff"/>
-        <circle cx="40" cy="22" r="0.5" fill="#fff"/>
-        <circle cx="60" cy="17" r="0.6" fill="#fff"/>
-        <circle cx="70" cy="8" r="0.5" fill="#fff"/>
-        <circle cx="90" cy="15" r="0.7" fill="#fff"/>
-    </svg>
-    <div class="dashboard-container">
-        <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
-        <div class="tabs">
-            <button class="tab active" data-tab="home"><i class="fas fa-home"></i> Home</button>
-            <button class="tab" data-tab="profile"><i class="fas fa-user"></i> Manage Profile</button>
-            <button class="tab" data-tab="credentials"><i class="fas fa-key"></i> Update Credentials</button>
-            <button class="tab" data-tab="logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
-        <div class="tab-content active" id="home">
-            <p style="color:#fff; text-align:center;">This is your dashboard. Use the tabs above to manage your account.</p>
-            <button class="founders-btn" onclick="window.location.href='dashboard/details.php'">
-                <i class="fas fa-users"></i> Founders
-            </button>
-            <button class="founders-btn" onclick="window.location.href='info.php'">
-                <i class="fas fa-info-circle"></i> Info
-            </button>
-        </div>
-        <div class="tab-content" id="profile">
-            <div class="profile-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-info">
-                <strong>Username:</strong> <?php echo htmlspecialchars($username); ?><br>
-                <!-- Add more profile info here -->
-            </div>
-            <button type="button" onclick="alert('Profile editing not implemented yet');">Edit Profile</button>
-        </div>
-        <div class="tab-content" id="credentials">
-            <form method="post" action="">
-                <label for="new-username">New Username</label>
-                <input type="text" id="new-username" name="new_username" maxlength="30" placeholder="Enter new username">
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new_password" maxlength="255" placeholder="Enter new password">
-                <button type="submit" name="update_credentials">Update Credentials</button>
-            </form>
-        </div>
-        <div class="tab-content" id="logout">
-            <form method="post" action="">
-                <button type="submit" name="logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </form>
-        </div>
-    </div>
-    <script>
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
-            });
-        });
-    </script>
+<div class="dashboard-container">
+    <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
+
+    <button class="btn" onclick="window.location.href='dashboard/details.php'">
+        <i class="fas fa-users"></i> Founders
+    </button>
+    <button class="btn" onclick="window.location.href='info.php'">
+        <i class="fas fa-info-circle"></i> Info
+    </button>
+    <button class="btn" onclick="window.location.href='#'">
+        <i class="fas fa-user"></i> Manage Profile
+    </button>
+    <button class="btn" onclick="window.location.href='#'">
+        <i class="fas fa-key"></i> Update Credentials
+    </button>
+    <form method="post" style="margin:0;">
+        <button class="btn" type="submit" name="logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+
+    <div class="coming-soon">✨ Other features coming soon... ✨</div>
+</div>
 </body>
 </html>
