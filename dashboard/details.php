@@ -1,1 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HACKLINK TECH.INC</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-blue: #05e6ff;
+      --primary-dark: #000000;
+      --primary-light: #05e6ff;
+      --accent-gold: #05e6ff;
+      --glow-red: rgba(0, 0, 0, 0.6);
+      --glow-dark: rgba(0, 0, 0, 0.7);
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--primary-dark);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #000, #011, #001d1d, #000);
+      background-size: 400% 400%;
+      animation: shimmer 15s ease infinite;
+      overflow: hidden;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .electric-pulse {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255, 0, 0, 0.05) 0%, transparent 70%);
+      animation: pulse 8s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.1; transform: scale(0.8); }
+      100% { opacity: 0.3; transform: scale(1.2); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 0;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-blue);
+      transition: all 0.5s ease;
+    }
+
+    .logo-image:hover {
+      animation: pulseBorder 2s infinite alternate;
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    @keyframes pulseBorder {
+      0% { box-shadow: 0 0 15px var(--primary-blue); }
+      100% { box-shadow: 0 0 35px var(--primary-blue), 0 0 60px var(--primary-blue); }
+    }
+
+    .logo-text h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .logo-text span {
+      font-size: 1rem;
+      color: var(--primary-light);
+      letter-spacing: 1px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 15px;
+      border: 2px solid var(--primary-blue);
+      box-shadow: 0 0 15px var(--primary-blue), inset 0 0 15px var(--primary-blue);
+      margin-bottom: 40px;
+      animation: contentGlow 4s infinite alternate;
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.35);
+    }
+
+    @keyframes contentGlow {
+      0% {
+        box-shadow: 0 0 15px var(--primary-blue), inset 0 0 15px var(--primary-blue);
+        border-color: var(--primary-blue);
+      }
+      100% {
+        box-shadow: 0 0 30px var(--primary-blue), inset 0 0 30px var(--primary-blue);
+        border-color: var(--accent-gold);
+      }
+    }
+
+    .feature-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 400px;
+      border-radius: 10px;
+      border: 3px solid var(--primary-blue);
+      box-shadow: 0 0 20px var(--primary-blue);
+      margin-bottom: 30px;
+      transition: all 0.5s ease;
+    }
+
+    .feature-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 40px var(--primary-blue);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary-light);
+      text-shadow: 0 0 10px var(--glow-red);
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 50px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.6s ease;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-download {
+      background: linear-gradient(to right, var(--primary-blue), #000000);
+      border-color: var(--primary-blue);
+    }
+
+    .btn-pair, .btn-github, .btn-heroku, .btn-contact {
+      background: linear-gradient(to right, #000, #222);
+      border-color: var(--accent-gold);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #05e6ff, 0 0 30px #05e6ff, 0 0 60px #05e6ff;
+      border-color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    .footer-music-buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .neon-button {
+      background-color: #4b4b4b;
+      color: #33CCFF;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(51,204,255,0.5);
+    }
+
+    .neon-button:hover {
+      background-color: #5b5b5b;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .logo-image {
+        width: 70px;
+        height: 70px;
+      }
+      .logo-text h1 {
+        font-size: 1.8rem;
+      }
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+      }
+      .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <div class="electric-pulse"></div>
+
+  <audio id="music-player" src=""></audio>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="https://files.catbox.moe/48wlrw.jpg" alt="HACKLINKTECH logo" class="logo-image" />
+        <div class="logo-text">
+          <h1 id="typewriter"></h1>
+          <span>The Best TECHNOLOGICAL Platform</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <img src="https://files.catbox.moe/48wlrw.jpg" alt="HACKLINKTECH" class="feature-image" />
+      <h2>HACKLINKTECH Developed By HACKLINK TECH.INC</h2>
+      <p>HACKLINKTECH.</p>
+
+      <div class="button-group">
+        <a href="https://whatsapp.com/channel/0029Vb6jxRD7IUYbQfokIu2s" class="btn btn-download">
+          <i class="fab fa-whatsapp"></i> Whatsapp channel 
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb62TDsAYlUBrGoU1y3S" target="_blank" class="btn btn-github">
+          <i class="fab fa-whatsapp"></i> Whatsapp backup channel 
+        </a>
+        <a href="https://wa.me/254769677305" target="_blank" class="btn btn-contact">
+          <i class="fas fa-headset"></i> Contact Owner
+        </a>
+        <a href="https://wa.me/254718247203" target="_blank" class="btn btn-contact">
+          <i class="fas fa-headset"></i> Contact Co-Owner
+        </a>
+        <a href="https://chat.whatsapp.com/IWTPLw7WogG0sc5L4u2syz?mode=ac_t" target="_blank" class="btn btn-github">
+          <i class="fab fa-whatsapp"></i> Whatsapp group 
+        </a>
+        <a href="https://wa.me/254718247203" target="_blank" class="btn btn-contact">
+          <i class="fas fa-headset"></i> Contact Co-Owner
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; HACKLINKTECH</p>
+      <div class="footer-music-buttons">
+        <button id="yes-button" class="neon-button">Play Music</button>
+        <button id="no-button" class="neon-button">Stop Music</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const txt = "HACKLINK TECH.INC";
+    let i = 0;
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("typewriter").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, 150);
+      }
+    }
+
+    window.onload = function() {
+      typeWriter();
+
+      const musicFiles = [
+        "https://files.catbox.moe/vmwi86.mp3",
+        "https://files.catbox.moe/i4lvzy.mp3",
+        "https://files.catbox.moe/e8s5ua.mp3",
+        "https://files.catbox.moe/zkzhi1.mp3"
+      ]; 
+
+      const yesButton = document.getElementById("yes-button");
+      const noButton = document.getElementById("no-button");
+      const musicPlayer = document.getElementById("music-player");
+
+      let musicCount = 0;
+
+      yesButton.addEventListener("click", playMusic);
+      noButton.addEventListener("click", stopMusic);
+
+      function playMusic() {
+        musicCount = 0;
+        playNextMusic();
+      }
+
+      function stopMusic() {
+        musicPlayer.pause();
+        musicPlayer.currentTime = 0;
+      }
+
+      function playNextMusic() {
+        if (musicCount < 2) { 
+          const randomIndex = Math.floor(Math.random() * musicFiles.length);
+          musicPlayer.src = musicFiles[randomIndex];
+          musicPlayer.play().catch(error => {
+            console.error("Error playing music:", error);
+          });
+          musicCount++;
+
+          musicPlayer.onended = function() {
+            playNextMusic();
+          }
+
+          musicPlayer.onerror = function() {
+            console.error("Error playing music");
+          }
+        }
+      }
+    };
+  </script>
+</body>
+</html>
