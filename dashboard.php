@@ -1,7 +1,12 @@
 <?php
+// Ensure no whitespace before this PHP block!
 
-session_start();
+// Start session only if none is active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Redirect if not logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ./login/");
     exit;
@@ -12,6 +17,7 @@ $query = new Database();
 
 $username = $_SESSION['username'];
 
+// Handle logout before any HTML output!
 if (isset($_POST['logout'])) {
     session_destroy();
     setcookie('username', '', time() - 3600, "/");
@@ -23,7 +29,6 @@ if (isset($_POST['logout'])) {
 // TODO: Add backend logic for updating profile and credentials
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
