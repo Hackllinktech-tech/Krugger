@@ -161,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById("username").addEventListener("keyup", function(){
       let username = this.value;
       if(username.length > 2){
-        fetch("check_username.php?username=" + encodeURIComponent(username))
+        fetch("signup/check_username.php?username=" + encodeURIComponent(username))
         .then(res => res.text())
         .then(data => {
           let status = document.getElementById("username-status");
