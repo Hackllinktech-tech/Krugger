@@ -1,8 +1,8 @@
 <?php
 define("DB_SERVER", "sql8.freesqldatabase.com");
-define("DB_USERNAME", "sql8794565");
-define("DB_PASSWORD", "xpw1fvexwS");
-define("DB_NAME", "sql8794565");
+define("DB_USERNAME", "sql8794627);
+define("DB_PASSWORD", "BXrQfkfX9k);
+define("DB_NAME", "sql8794627);
 
 class Database
 {
