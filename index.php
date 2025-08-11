@@ -22,27 +22,20 @@
         flex-direction: column;
     }
 
-    /* Snowflake animation */
     .snowflake {
         position: fixed;
         top: -10px;
-        font-size: 1em;
         color: rgba(0, 255, 255, 0.8);
         animation: fall linear infinite;
+        user-select: none;
+        pointer-events: none;
     }
 
     @keyframes fall {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(360deg);
-            opacity: 0.3;
-        }
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity: 0.3; }
     }
 
-    /* Glowing Title */
     h1 {
         font-size: 3rem;
         text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
@@ -58,9 +51,10 @@
         font-size: 1.2rem;
         margin-bottom: 20px;
         color: #bbb;
+        text-align: center;
+        max-width: 500px;
     }
 
-    /* Get Started Button */
     .btn {
         padding: 12px 25px;
         background: transparent;
@@ -83,10 +77,9 @@
 <body>
 
 <h1>HACKLINK TECH</h1>
-<p>Your portal to the next level of connectivity...</p>
+<p>Your portal to the next level of connectivity... <br> Experience innovation like never before.</p>
 <a href="signup/index.php" class="btn">Get Started</a>
 
-<!-- Snowflake Generator -->
 <script>
 function createSnowflake() {
     const snowflake = document.createElement('div');
@@ -95,12 +88,11 @@ function createSnowflake() {
     snowflake.style.left = Math.random() * window.innerWidth + 'px';
     snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
     snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    snowflake.style.animationDelay = Math.random() * 5 + 's';
     snowflake.style.opacity = Math.random();
     document.body.appendChild(snowflake);
 
-    setTimeout(() => {
-        snowflake.remove();
-    }, 10000);
+    setTimeout(() => snowflake.remove(), 10000);
 }
 
 setInterval(createSnowflake, 200);
