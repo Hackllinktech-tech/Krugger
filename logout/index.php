@@ -1,28 +1,26 @@
 <?php
 session_start();
 
-// Destroy all session data
-$_SESSION = [];
+// Unset all session variables
 session_unset();
+
+// Destroy the session
 session_destroy();
 
-// List of cookies to clear
+// Delete relevant cookies if they exist
 $cookies = ['username', 'session_token'];
-
-// Clear each cookie
 foreach ($cookies as $cookie) {
     if (isset($_COOKIE[$cookie])) {
-        // Set expiration in the past & secure attributes
-        setcookie($cookie, '', time() - 3600, '/', '', isset($_SERVER['HTTPS']), true);
+        setcookie($cookie, '', time() - 3600, '/'); // expire in the past
     }
 }
 
-// Force browser not to cache this page
+// Prevent browser from caching the page
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+header("Expires: 0");
 
-// Redirect user to login page
-header("Location: ../login/");
+// Redirect to login page
+header("Location: ../login/index.php");
 exit;
+?>
