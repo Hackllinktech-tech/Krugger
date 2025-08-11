@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit"><i class="fas fa-user-plus"></i> Register</button>
     </form>
-    <p>Already have an account? <a href="login.php">Login here</a></p>
+    <p>Already have an account? <a href="login/index.php">Login here</a></p>
   </div>
 
   <script>
