@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    header("Location: ../");
+    header("Location: ../dashboard.php");
     exit;
 }
 
@@ -10,7 +10,6 @@ include '../config.php';
 $query = new Database();
 
 if (isset($_COOKIE['username']) && isset($_COOKIE['session_token'])) {
-
     if (session_id() !== $_COOKIE['session_token']) {
         session_write_close();
         session_id($_COOKIE['session_token']);
@@ -26,7 +25,7 @@ if (isset($_COOKIE['username']) && isset($_COOKIE['session_token'])) {
         $_SESSION['username'] = $_COOKIE['username'];
         $_SESSION['user_id'] = $user['id'];
 
-        header("Location: ../");
+        header("Location: ../dashboard.php");
         exit;
     }
 }
@@ -56,7 +55,7 @@ if (isset($_POST['submit'])) {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    window.location.href = '../';
+                    window.location.href = '../dashboard.php';
                 });
             };
         </script>
@@ -97,7 +96,6 @@ if (isset($_POST['submit'])) {
             position: relative;
             overflow: hidden;
         }
-        /* Mountains background - SVG */
         .mountains-bg {
             position: absolute;
             top: 0; left: 0;
@@ -105,7 +103,6 @@ if (isset($_POST['submit'])) {
             z-index: 0;
             pointer-events: none;
         }
-        /* Glassmorphism card */
         .form-container {
             position: relative;
             z-index: 1;
@@ -217,7 +214,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <!-- Mountains SVG Background -->
     <svg class="mountains-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
         <defs>
             <linearGradient id="mountain-gradient" x1="0" y1="0" x2="0" y2="1">
@@ -228,7 +224,6 @@ if (isset($_POST['submit'])) {
         <path d="M0,80 Q20,60 40,80 Q60,100 80,80 Q90,70 100,80 L100,100 L0,100 Z"
               fill="url(#mountain-gradient)" opacity="0.8"/>
         <circle cx="80" cy="25" r="8" fill="#fff8" />
-        <!-- Stars -->
         <circle cx="15" cy="18" r="0.6" fill="#fff"/>
         <circle cx="25" cy="10" r="0.7" fill="#fff"/>
         <circle cx="40" cy="22" r="0.5" fill="#fff"/>
