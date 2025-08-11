@@ -126,10 +126,166 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Sign Up</title>
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../src/css/login_signup_cloud.css">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #6e3891 0%, #cf6f9f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .background-svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(255,255,255,0.90);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-left, .card-right {
+            width: 100%;
+            text-align: center;
+        }
+        .card-left h2, .card-right h2 {
+            color: #6e3891;
+            font-size: 2em;
+            margin-bottom: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .card-left form {
+            width: 100%;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: #f9e6f5;
+            border-radius: 8px;
+            padding: 0 10px;
+            margin-bottom: 18px;
+            border: 1px solid #cf6f9f;
+        }
+        .input-icon {
+            color: #cf6f9f;
+            font-size: 1.1em;
+            margin-right: 8px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #6e3891;
+            font-size: 1em;
+            flex: 1;
+            padding: 10px 0;
+            font-weight: 500;
+        }
+        input::placeholder {
+            color: #ae4d7b;
+            opacity: 1;
+        }
+        .checkbox-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .checkbox-group label {
+            color: #6e3891;
+            font-size: 0.98em;
+        }
+        .checkbox-group a {
+            color: #cf6f9f;
+            text-decoration: underline;
+        }
+        .create-account-btn, button[type="submit"] {
+            background: linear-gradient(90deg, #cf6f9f 0%, #6e3891 100%);
+            color: #fff;
+            font-size: 1.1em;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(110, 56, 145, 0.15);
+        }
+        .create-account-btn:hover, button[type="submit"]:hover {
+            background: linear-gradient(90deg, #6e3891 0%, #cf6f9f 100%);
+        }
+        .text-center p, .card-right p {
+            color: #fff;
+            margin-top: 24px;
+            font-size: 1em;
+            background: rgba(110,56,145,0.7);
+            border-radius: 8px;
+            padding: 8px;
+        }
+        #email-message, #username-message {
+            color: #d9534f;
+            font-size: 0.95em;
+            margin-top: 4px;
+            margin-bottom: 0;
+            min-height: 18px;
+        }
+        .password-toggle {
+            background: none;
+            border: none;
+            color: #cf6f9f;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-left: 8px;
+        }
+        .cloud-divider {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px 5px;
+                max-width: 98vw;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Background SVG for mountains and sky -->
+    <svg class="background-svg" viewBox="0 0 800 600" preserveAspectRatio="none">
+      <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6e3891"/>
+        <stop offset="100%" stop-color="#cf6f9f"/>
+      </linearGradient>
+      <rect width="800" height="600" fill="url(#skyGradient)" />
+      <circle cx="650" cy="90" r="40" fill="#fff2" />
+      <path d="M0,450 Q200,400 400,500 T800,450 V600 H0 Z" fill="#7c438c"/>
+      <path d="M0,500 Q300,480 600,600 T800,500 V600 H0 Z" fill="#b15d9b"/>
+    </svg>
+
     <div class="container">
         <div class="card">
             <div class="card-left">
@@ -172,10 +328,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>Glad to see you!</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dignissim.</p>
             </div>
-            <!-- Cloud divider SVG -->
-            <svg class="cloud-divider" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,100 Q150,200 300,100 T600,100 V200 H0 Z" fill="#fff"/>
-            </svg>
         </div>
     </div>
     <script src="../src/js/sweetalert2.js"></script>
