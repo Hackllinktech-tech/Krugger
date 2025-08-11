@@ -289,7 +289,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="card">
             <div class="card-left">
-                <h1>HACKLLINK TECH.INC</h1>
                 <h2>welcome to HACKLINK TECH</h2>
                 <form id="signupForm" method="post" action="" autocomplete="off" novalidate>
                     <div class="input-group">
