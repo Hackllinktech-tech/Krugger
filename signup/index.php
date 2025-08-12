@@ -1,6 +1,6 @@
 <?php
 // signup/index.php
-include 'config.php';
+include __DIR__ . '/../config.php'; // FIXED PATH
 $message = "";
 
 // Handle form submission
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $first_name, $last_name, $email, $username, $hashedPassword);
 
             if ($stmt->execute()) {
-                header("Location: login.php?registered=1");
+                header("Location: ../login/index.php?registered=1");
                 exit;
             } else {
                 $message = "Registration failed. Try again.";
@@ -126,7 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       text-shadow: 0 0 5px #05e6ff;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .container {
         width: 90vw;
@@ -154,14 +153,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit"><i class="fas fa-user-plus"></i> Register</button>
     </form>
-    <p>Already have an account? <a href="login/index.php">Login here</a></p>
+    <p>Already have an account? <a href="../login/index.php">Login here</a></p>
   </div>
 
   <script>
     document.getElementById("username").addEventListener("keyup", function(){
       let username = this.value;
       if(username.length > 2){
-        fetch("signup/check_username.php?username=" + encodeURIComponent(username))
+        fetch("check_username.php?username=" + encodeURIComponent(username))
         .then(res => res.text())
         .then(data => {
           let status = document.getElementById("username-status");
