@@ -1,31 +1,28 @@
 <?php
-session_start();
+// check_username.php
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    header("Location: ../");
-    exit;
-}
+// Load database connection
+include __DIR__ . '/../config.php';
 
-include '../config.php';
-$query = new Database();
+// Ensure we have a username to check
+if (isset($_GET['username']) && !empty(trim($_GET['username']))) {
+    $username = trim($_GET['username']);
 
-$response = ['exists' => false];
+    // Prepare SQL to check if username exists
+    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
 
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
-    $email_check = $query->select('users', 'email', 'email = ?', [$email], 's');
-    if ($email_check) {
-        $response['exists'] = true;
+    if ($stmt->num_rows > 0) {
+        echo "Username already taken ❌";
+    } else {
+        echo "Username available ✅";
     }
+
+    $stmt->close();
+} else {
+    echo "Please enter a username";
 }
 
-if (isset($_POST['username'])) {
-    $username = $_POST['username'];
-    $username_check = $query->select('users', 'username', 'username = ?', [$username], 's');
-    if ($username_check) {
-        $response['exists'] = true;
-    }
-}
-
-echo json_encode($response);
-exit;
+$conn->close();
